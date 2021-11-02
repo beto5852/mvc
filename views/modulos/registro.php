@@ -45,8 +45,7 @@ if (isset($_GET["action"])) {
 
 <?php 
 // mostramos lo que esta registrando
-$registro = new MvcController();
-$registro->registroUsuarioController();
+MvcController::registroUsuarioController();
 
 
 ?>

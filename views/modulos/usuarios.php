@@ -4,8 +4,7 @@ session_start();
 // validamos que la variable de session no es verdadero
 if(!isset($_SESSION["validar"]))
 {
-  header("location:index.php?action=ingresar");
-  die;
+  header("location:ingresar");
 }
 
 if (isset($_GET["action"])) {

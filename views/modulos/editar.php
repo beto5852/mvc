@@ -1,3 +1,14 @@
+<?php 
+
+session_start();
+// validamos que la variable de session no es verdadero
+if(!isset($_SESSION["validar"]))
+{
+  header("location:ingresar");
+}
+
+
+?>
 <h1 class="mt-5 ">Editar usuario</h1>
 
 

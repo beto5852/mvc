@@ -10,4 +10,4 @@ RewriteEngine on
 #Usamos una expresión regular como regla para capturar todo lo que venga despues de la palabra action
 #pasamos una variable $1 a la url que queremos que se reescriba y se remplace
 
-RewriteRule ^(\W+)$  index.php?action=$1
+RewriteRule ^(\w+)$  index.php?action=$1

@@ -10,19 +10,19 @@
                                 <a href="index.php" class="nav-link">Registrar</a>
                             </li>
                             <li class="nav-item">
-                                <a href="index.php?action=nosotros" class="nav-link">Nosotros</a>
+                                <a href="nosotros" class="nav-link">Nosotros</a>
                             </li>
                             <li class="nav-item">
-                                <a href="index.php?action=servicios" class="nav-link">Servicios</a>
+                                <a href="servicios" class="nav-link">Servicios</a>
                             </li>
                             <li class="nav-item">
-                                <a href="index.php?action=ingresar" class="nav-link">Ingresar</a>
+                                <a href="ingresar" class="nav-link">Ingresar</a>
                             </li>
                             <li class="nav-item">
-                                <a href="index.php?action=usuarios" class="nav-link">usuarios</a>
+                                <a href="usuarios" class="nav-link">usuarios</a>
                             </li>
                             <li class="nav-item">
-                                  <a href="index.php?action=salir" class="nav-link">Salir</a>
+                                  <a href="salir" class="nav-link">Salir</a>
                             </li>
                             
                         </ul>                    

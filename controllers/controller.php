@@ -50,7 +50,7 @@ class MvcController
     #REGISTRO DE USUARIOS
     #-------------------------------------------------------------
 
-    public function registroUsuarioController()
+    public static function registroUsuarioController()
     {
         
         if (isset($_POST["usuarioRegistro"])) {
@@ -82,7 +82,8 @@ class MvcController
 
                     // redirigimos a una pagina que diga ok
                     // para actualizar la pagina
-                    header("location:index.php?action=ok");
+                    //quitamos el index.php?action=ok y usamos el htaccess como url amigables
+                    header("location:ok");
                     exit();
                     }
                     else {
@@ -90,7 +91,7 @@ class MvcController
                     }
                 
             }else{
-                header("location:index.php?action=falloUserName");
+                header("location:falloUserName");
             }          
         }
     }
@@ -111,8 +112,7 @@ class MvcController
                  
                 $encriptar = crypt($_POST["passwordIngreso"], $blowfish_salt); 
             
-                $datosController = array("usuario" => $_POST["usuarioIngreso"],
-                                         "password" => $encriptar);
+                $datosController = array("usuario" => $_POST["usuarioIngreso"],"password" => $encriptar);
 
                 $respuesta = Datos::ingresoUsuarioModel($datosController, "usuarios");
 
@@ -127,7 +127,7 @@ class MvcController
                     // si el usaurio existe en la BD como coincidencia               
 
                     if ($respuesta["usuario"] == $_POST["usuarioIngreso"] &&
-                            $respuesta["password"] == $encriptar)
+                        $respuesta["password"] == $encriptar)
                     {
                         session_start();
                         
@@ -135,13 +135,12 @@ class MvcController
 
                         $intentos = 0;
 
-                        $datosIntentos = array("usuarioActual" => $usuario,
-                        "actualizarIntentos" => $intentos);
+                        $datosIntentos = array("usuarioActual" => $usuario, "actualizarIntentos" => $intentos);
 
                         $repuestaActualizarIntentos = Datos::intentosUsuarioModel($datosIntentos,"usuarios");
 
                             //redirecciona a la lista de usuarios
-                            header("location:index.php?action=usuarios");
+                            header("location:usuarios");
                     }                        
                     else {
                             //incrementamos los intentos
@@ -156,7 +155,7 @@ class MvcController
                             if ($repuestaActualizarIntentos == "agregado") {
                 
                              // redirigimos al la página con el numero de intentos
-                                header("location:index.php?action=$intentos");
+                                header("location:$intentos");
                             }
                             else {
                                     header("location:index.php");
@@ -179,7 +178,7 @@ class MvcController
                     if ($repuestaActualizarIntentos == "agregado") {
 
                     // redirigimos a una pagina de fallo 3 intentos
-                    header("location:index.php?action=fallo3Intentos");
+                    header("location:fallo3Intentos");
                     }
                     else {
                         header("location:index.php");
@@ -273,7 +272,7 @@ class MvcController
 
                     if ($respuesta == "exitoso") {
                         # code...
-                        header("location:index.php?action=cambio");
+                        header("location:cambio");
                         exit();
                     }
                     else {
@@ -307,8 +306,7 @@ class MvcController
 
             if ($respuesta == "exitoso") {
                 # redirigimos a la lista de usuarios
-                header("location:index.php?action=borrar");
-                exit();
+                header("location:borrar");
             }
             else {
                 # imprimimos un error
