@@ -5,6 +5,7 @@ session_start();
 if(!isset($_SESSION["validar"]))
 {
   header("location:ingresar");
+  exit();
 }
 
 if (isset($_GET["action"])) {
@@ -40,8 +41,13 @@ if (isset($_GET["action"])) {
   }
 
 ?>
-
-
+<?php if (!empty($_SESSION["usuario"])) {?>
+  <div class="container mt-4">
+  <ul class="list-group">
+    <li class="list-group-item active"> Bienvenido <strong><?php echo $_SESSION["usuario"];?></strong> </li>
+  </ul>
+  </div>
+<?php }?>
 <h1 class="mt-5">Lista de usuarios</h1>
 
 <table class="table mt-5">

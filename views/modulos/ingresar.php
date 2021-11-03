@@ -1,5 +1,14 @@
 <?php 
 
+session_start();
+// validamos que la variable de session no es verdadero
+if(isset($_SESSION["validar"]))
+{
+  header("location:usuarios");
+  exit();
+}
+
+
 
 if (isset($_GET["action"])) {
   

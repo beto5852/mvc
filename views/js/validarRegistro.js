@@ -1,4 +1,31 @@
+/* ***************************************************************
+    VALIDAR USUARIO EXISTENTE CON AJAX y JQUERY
+ *************************************************************** */
+//iniciamos JQUEy con $ y luegp pasamos una funcion anonima al change
+$('#usuarioRegistro').change(function(){
 
+    var usuarioAjax = $('#usuarioRegistro').val();
+    // console.log('usuario',usuarioAjax);
+
+    // instanciando con FormData  le permiten compilar un conjunto de pares clave/valor para enviar mediante XMLHttpRequest
+    var datos = new FormData();
+    
+    // añadimos campos a la instancia usando el método append
+    datos.append("validarUsuario",usuarioAjax);
+
+    $.ajax({
+        url: "views/modules/ajax.php",
+        method: "POST",
+        data: datos,
+        Cache: false,
+        contentType: false
+    });
+});
+
+
+/* ***************************************************************
+    FIN NVALIDAR USUARIO EXISTENTE CON AJAX 
+ *************************************************************** */
 /* ***************************************************************
     VARIABLES 
  *************************************************************** */
@@ -13,7 +40,7 @@ eventListeners();
 
 function eventListeners(){
     // Inicio de la aplicación y deshabilitación del submit en el form
-    document.addEventListener("DOMContentLoaded",diableBtn);
+    document.addEventListener("DOMContentLoaded",disableBtn);
 
     // campos del formulario
     nombre.addEventListener("keyup", validarCampo);
@@ -22,7 +49,7 @@ function eventListeners(){
     
 }
 
-function diableBtn(e){
+function disableBtn(e){
     btnRegistrar.disabled = true;
 }
 

@@ -20,7 +20,7 @@ class MvcController
     #INTERACCION DEL USUARIO
     #-------------------------------------------------------------
 
-    public function enlacesPaginasController()
+    public static function enlacesPaginasController()
     {
 
         //validar que la variable tenga informacion
@@ -115,76 +115,81 @@ class MvcController
                 $datosController = array("usuario" => $_POST["usuarioIngreso"],"password" => $encriptar);
 
                 $respuesta = Datos::ingresoUsuarioModel($datosController, "usuarios");
+              
+                if ($respuesta == TRUE) {
+                    //obtener los intentos y el usuario
+                    $intentos = $respuesta["intentos"];
+                    $usuario = $_POST["usuarioIngreso"];
+                    $maxIntentos = 3;
 
-                //obtener los intentos y el usuario
-                $intentos = $respuesta["intentos"];
-                $usuario = $_POST["usuarioIngreso"];
-                $maxIntentos = 3;
-
-                //evaluar a la cantidad maxima de intentos no supere el maximo
-                if ($intentos < $maxIntentos) 
-                {
-                    // si el usaurio existe en la BD como coincidencia               
-
-                    if ($respuesta["usuario"] == $_POST["usuarioIngreso"] &&
-                        $respuesta["password"] == $encriptar)
+                    //evaluar a la cantidad maxima de intentos no supere el maximo
+                    if ($intentos < $maxIntentos) 
                     {
-                        session_start();
-                        
-                        $_SESSION["validar"] = TRUE;
+                        // si el usaurio existe en la BD como coincidencia               
 
-                        $intentos = 0;
+                        if ($respuesta["usuario"] == $_POST["usuarioIngreso"] &&
+                            $respuesta["password"] == $encriptar)
+                        {
+                            
+                            $_SESSION["validar"] = TRUE;
+                            // $_SESSION["usuario"] = $respuesta["usuario"];
+                            // $_SESSION["email"] = $respuesta["email"];
 
-                        $datosIntentos = array("usuarioActual" => $usuario, "actualizarIntentos" => $intentos);
+                            $intentos = 0;
 
-                        $repuestaActualizarIntentos = Datos::intentosUsuarioModel($datosIntentos,"usuarios");
-
-                            //redirecciona a la lista de usuarios
-                            header("location:usuarios");
-                    }                        
-                    else {
-                            //incrementamos los intentos
-                            ++$intentos;
-                            //asigamos los datos a una variable para enviarla a la BD
-                            $datosIntentos = array("usuarioActual" => $usuario,
-                                                    "actualizarIntentos" => $intentos);
+                            $datosIntentos = array("usuarioActual" => $usuario, "actualizarIntentos" => $intentos);
 
                             $repuestaActualizarIntentos = Datos::intentosUsuarioModel($datosIntentos,"usuarios");
 
-                              //validar agregar el intento
-                            if ($repuestaActualizarIntentos == "agregado") {
-                
-                             // redirigimos al la página con el numero de intentos
-                                header("location:$intentos");
-                            }
-                            else {
-                                    header("location:index.php");
-                            }
+                                //redirecciona a la lista de usuarios
+                                header("location:usuarios");
+                        }                        
+                        else {
+                                //incrementamos los intentos
+                                ++$intentos;
+                                //asigamos los datos a una variable para enviarla a la BD
+                                $datosIntentos = array("usuarioActual" => $usuario,
+                                                        "actualizarIntentos" => $intentos);
 
-                    } 
+                                $repuestaActualizarIntentos = Datos::intentosUsuarioModel($datosIntentos,"usuarios");
+
+                                //validar agregar el intento
+                                if ($repuestaActualizarIntentos == "agregado") {
                     
-                }
-                else {
-                    /** inicializamos el contador de intentos  */
-                    $intentos = 0;
+                                // redirigimos al la página con el numero de intentos
+                                    header("location:$intentos");
+                                }
+                                else {
+                                        header("location:index.php");
+                                }
 
-                    $datosIntentos = array("usuarioActual" => $usuario,
-                    "actualizarIntentos" => $intentos);
-                    
-                    /** mandar los intentos actualizados */
-                    $repuestaActualizarIntentos = Datos::intentosUsuarioModel($datosIntentos,"usuarios");
-
-                    //validar agregar si el intento fue actualizado correctamente
-                    if ($repuestaActualizarIntentos == "agregado") {
-
-                    // redirigimos a una pagina de fallo 3 intentos
-                    header("location:fallo3Intentos");
+                        } 
+                        
                     }
                     else {
-                        header("location:index.php");
-                    }
+                        /** inicializamos el contador de intentos  */
+                        $intentos = 0;
 
+                        $datosIntentos = array("usuarioActual" => $usuario,
+                        "actualizarIntentos" => $intentos);
+                        
+                        /** mandar los intentos actualizados */
+                        $repuestaActualizarIntentos = Datos::intentosUsuarioModel($datosIntentos,"usuarios");
+
+                        //validar agregar si el intento fue actualizado correctamente
+                        if ($repuestaActualizarIntentos == "agregado") {
+
+                        // redirigimos a una pagina de fallo 3 intentos
+                        header("location:fallo3Intentos");
+                        }
+                        else {
+                            header("location:index.php");
+                        }
+
+                    }
                 }
+
+                
             } 
         }
     }

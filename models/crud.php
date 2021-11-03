@@ -42,14 +42,14 @@ class Datos extends Conexion
     #---------------------------------------------------------
     public static function ingresoUsuarioModel($datosModel, $tabla)
     {
-       
-        $cadena = Conexion::conectar()->prepare( "SELECT usuario, password, intentos FROM $tabla WHERE usuario = :usuario ");
+        
+        $cadena = Conexion::conectar()->prepare( "SELECT usuario, password, email, intentos FROM $tabla WHERE usuario = :usuario ");
 
         $cadena->bindParam(":usuario", $datosModel["usuario"], PDO::PARAM_STR);
         $cadena->execute();
-
-        #fetch(); obtiene una fila de un conjunto de resultados asociados al PDOStatement
+        
         return $cadena->fetch();
+
 
         //cerramos las conexiones
         $cadena = null;
@@ -144,18 +144,23 @@ class Datos extends Conexion
     #---------------------------------------------------------
     public static function borrarUsuarioModel($datosModel, $tabla)
     {
+
+        try {
+            $cadena = Conexion::conectar()->prepare( "DELETE FROM $tabla WHERE id_usuario = :id");
+            $cadena->bindParam(":id", $datosModel, PDO::PARAM_INT);
+    
+            if($cadena->execute()) {
+    
+                return "exitoso";
+             }
+             else {
+                 return "error";
+             }
+
+        } catch(PDOException $e) {
+            echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+        }
        
-        $cadena = Conexion::conectar()->prepare( "DELETE FROM $tabla WHERE id_usuario = :id");
-        $cadena->bindParam(":id", $datosModel, PDO::PARAM_INT);
-
-        if($cadena->execute()) {
-
-            return "exitoso";
-         }
-         else {
-             return "error";
-         }
-
         //cerramos las conexiones
         $cadena = null;
     }
