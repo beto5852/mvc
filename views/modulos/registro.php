@@ -21,22 +21,31 @@ if (isset($_GET["action"])) {
 
 <div class="formulario mt-5" style="margin: 0 auto;">
   <div class="form-group w-50 ">
-  <form method="post">
+  <form method="post"  class="needs-validation" novalidate>
+
     <div class="form-group">
-      <label for="usuarioRegistro">Nombre:</label>
-      <input type="text" class="form-control" name="usuarioRegistro" id="usuarioRegistro" placeholder="Ingrese su nombre de usuario" required>
+      <label for="usuarioRegistro">Nombre: <span></span></label>
+      <input type="text" class="form-control" name="usuarioRegistro" id="usuarioRegistro" placeholder="Ingrese su nombre de usuario" autocomplete="off" required >
     </div>
+
     <div class="form-group">
-      <label for="passwordRegistro">Contraseña: </label>
+      <label for="passwordRegistro">Contraseña: <span></span></label>
       <input type="password" class="form-control" name="passwordRegistro" id="passwordRegistro" placeholder="Ingrese su contraseña" autocomplete="off" required>
+      
+      <div class="valid-feedback">Dato Correcto.</div>
+      <div class="invalid-feedback">Rellene el campo.</div>
     </div>
+
     <div class="form-group">
       <label for="emailRegistro">Email: </label>
-      <input type="email" class="form-control" name="emailRegistro" id="emailRegistro" placeholder="Ingrese un correo" required>
+      <input type="email" class="form-control" name="emailRegistro" id="emailRegistro" placeholder="Ingrese un correo" autocomplete="off" required>
+      
+      <div class="valid-feedback">Dato Correcto.</div>
+      <div class="invalid-feedback">Rellene el campo.</div>
     </div>
+
     <div class="form-group">
-      <label for=""></label>
-      <input type="submit" class="form-control btn btn-success btn-lg" id="registrar">
+      <input type="submit" class=" btn btn-success btn-lg w-100" id="registrar">
     </div>
   </form>
   </div>
@@ -50,5 +59,4 @@ MvcController::registroUsuarioController();
 
 ?>
 
-<script src="views/js/validarRegistro.js"></script>
 

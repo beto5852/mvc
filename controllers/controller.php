@@ -15,7 +15,7 @@ class MvcController
         // usamos include para invocar el archivo que contienen el codigo html
         include "views/templates.php";
     }
-
+   
     #-------------------------------------------------------------
     #INTERACCION DEL USUARIO
     #-------------------------------------------------------------
@@ -322,6 +322,26 @@ class MvcController
                   <strong>Algo salio mal!</strong> No se completo la operación!!.
                 </div>";
             }
+        }
+    }
+
+     #-------------------------------------------------------------
+    #VALIDAR DEL USUARIO
+    #-------------------------------------------------------------
+    public static function validarUsuarioController($validarUsuario)
+    {
+        $datosController = $validarUsuario;
+
+        $respuesta= Datos::validarUsuarioModel($datosController, "usuarios");
+
+        echo $respuesta;
+        
+        if (count($respuesta["usuario"]) > 0) {
+            
+            echo 0;
+        }
+        else{
+            echo 1;
         }
     }
 

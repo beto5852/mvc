@@ -47,7 +47,7 @@ class Datos extends Conexion
 
         $cadena->bindParam(":usuario", $datosModel["usuario"], PDO::PARAM_STR);
         $cadena->execute();
-        
+
         return $cadena->fetch();
 
 
@@ -84,11 +84,11 @@ class Datos extends Conexion
     public static function vistaUsuariosModel($tabla)
     {
        
-        $cadenacadenacadenacadena = Conexion::conectar()->prepare( "SELECT id_usuario, usuario, password, email FROM $tabla");
-        $cadenacadenacadenacadena->execute();
+        $cadena = Conexion::conectar()->prepare( "SELECT id_usuario, usuario, password, email FROM $tabla");
+        $cadena->execute();
 
         #fetchAll(); obtiene todas las filas de un conjunto de resultados asociados al PDOStatement
-        return $cadenacadenacadenacadena->fetchAll();
+        return $cadena->fetchAll();
 
         //cerramos las conexiones
         $cadena = null;
@@ -139,8 +139,8 @@ class Datos extends Conexion
     }
 
 
-       #---------------------------------------------------------
-    # EDITAR USUARIOS
+    #---------------------------------------------------------
+    # BORRAR USUARIOS
     #---------------------------------------------------------
     public static function borrarUsuarioModel($datosModel, $tabla)
     {
@@ -164,6 +164,26 @@ class Datos extends Conexion
         //cerramos las conexiones
         $cadena = null;
     }
+
+    #---------------------------------------------------------
+    # VALIDAR USUARIOS EXISTENTE
+    #---------------------------------------------------------
+    public static function validarUsuarioModel($datosModel, $tabla)
+    {
+
+        $cadena = Conexion::conectar()->prepare( "SELECT usuario FROM $tabla WHERE usuario  = :usuario");
+        $cadena->bindParam(":usuario", $datosModel, PDO::PARAM_STR);
+        $cadena->execute();
+
+        #fetch(); obtiene solo la fila del asociados al PDOStatement
+        return $cadena->fetch();
+
+   
+       
+        //cerramos las conexiones
+        $cadena = null;
+    }
+
 
 
 

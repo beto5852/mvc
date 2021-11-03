@@ -1,31 +1,72 @@
+
+
+
+
+
+
+
+
+
+
+
+
 /* ***************************************************************
     VALIDAR USUARIO EXISTENTE CON AJAX y JQUERY
  *************************************************************** */
-//iniciamos JQUEy con $ y luegp pasamos una funcion anonima al change
-$('#usuarioRegistro').change(function(){
+    // usuario no existe
+    var usuarioExistente = false;
 
-    var usuarioAjax = $('#usuarioRegistro').val();
+
+
+//iniciamos JQUEy con $ y luegp pasamos una funcion anonima al change
+$("#usuarioRegistro").change(function() {
+
+    var usuario = document.getElementById('usuarioRegistro');
+
     // console.log('usuario',usuarioAjax);
 
     // instanciando con FormData  le permiten compilar un conjunto de pares clave/valor para enviar mediante XMLHttpRequest
-    var datos = new FormData();
-    
+    var datos = new FormData(); 
+
     // añadimos campos a la instancia usando el método append
-    datos.append("validarUsuario",usuarioAjax);
+    datos.append("validarUsuario", usuario);
 
     $.ajax({
-        url: "views/modules/ajax.php",
-        method: "POST",
-        data: datos,
-        Cache: false,
-        contentType: false
+        url: "views/modulos/ajax.php", // archivo al que le enviaremos la peticion
+        method: "POST", //envimos los datos por medio de post
+        data: datos,  // datos que enviaremos al archivo ajax
+        cache: false, //mandar cache limpia
+        contentType: false, // tipo de contenido
+        processData: false,
+        success: function(respuesta){
+            // console.log(respuesta);
+
+            if(respuesta == 0)
+            {
+                $("label[for='usuarioRegistro'] span").html('<div class="invalid-feedback">Este usuario Ya existe en la base.</div>');
+
+                usuarioExistente = true;
+            }
+            else {
+                $("label[for='usuarioRegistro']").html('usuario');
+                usuarioExistente = false;
+            }
+
+
+
+        } //nos devolvera la repuesta
     });
 });
+
+
 
 
 /* ***************************************************************
     FIN NVALIDAR USUARIO EXISTENTE CON AJAX 
  *************************************************************** */
+
+
+    
 /* ***************************************************************
     VARIABLES 
  *************************************************************** */
@@ -113,7 +154,8 @@ VALIDAR USUARIO REGISTRO
  *************************************************************** */
 
 function validarNombreUsuario(){
-    console.log('dentro del input name');
+    // console.log('dentro del input name');
+    
 }
 
 
@@ -141,6 +183,8 @@ function validarPassword(campo){
         else{        
             campo.style.borderColor = 'red';
                 campo.classList.add('error');
+                
+        document.querySelector("label[for='passwordRegistro'] span").innerHTML += '<div class="valid-feedback">Correcto</div>';
         }
     }
 
@@ -173,3 +217,32 @@ function validarEmail(campo){
 
 
 /* **************************** FIN DE VAIDAR usuario REGSITRO **************************/
+
+
+
+// validacion de bootstrap 4
+
+/* function validateBS4(){
+    // Disable form submissions if there are invalid fields
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Get the forms we want to add validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+}
+
+  $(function(){
+    validateBS4();
+  }); */
