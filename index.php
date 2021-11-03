@@ -10,7 +10,6 @@
 #si queremos el mismo código mas de una vez corremos el riesgo de redeclarar variables, funciones y clases.
 require_once "controllers/controller.php";
 
-$mvc = new MvcController();
-$mvc->plantilla();
+MvcController::plantilla();
 
 #si un fichero contienen código PHP puro, es preferible omitir la etiqueta de cierre de PHP al final del fichero, esto impide que se añada espacios blancos o nuevas líneas despúes de la etiqueta de cierre en PHP, los cuales pueden causar efectos no deseados debido a que PHP iniciará la salida del buffer cuando no había intención en por parte del programador de enviar nínguna salida de ese punto del script

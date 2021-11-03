@@ -10,7 +10,7 @@ class MvcController
     #Metodo para invocar a la plantilla
     #-------------------------------------------------------------
 
-    public function plantilla()
+    public static function plantilla()
     {
         // usamos include para invocar el archivo que contienen el codigo html
         include "views/templates.php";
