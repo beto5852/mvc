@@ -323,6 +323,3 @@ class MvcController
 }
 
 
-
-
-?>
