@@ -1,5 +1,7 @@
 <?php 
 
+ use controllers\controller\MvcController;
+
 if (isset($_GET["action"])) {
   
   if($_GET["action"] == "falloRegistro"){
@@ -24,7 +26,7 @@ if (isset($_GET["action"])) {
   <form method="post"  class="needs-validation" novalidate>
 
     <div class="form-group">
-      <label for="usuarioRegistro">Nombre: <span></span></label>
+      <label for="usuarioRegistro">Nombre: <span id="userAjax"></span></label>
       <input type="text" class="form-control" name="usuarioRegistro" id="usuarioRegistro" placeholder="Ingrese su nombre de usuario" autocomplete="off" required >
     </div>
 

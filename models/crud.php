@@ -2,7 +2,12 @@
 
 #EXTENSION DE LA CLASE: Los obajetos pueden ser extendidos y pueden heredar propiedades y metodos, para definir una clase como extención, se debe definir una clase padre, y se utiliza dentro de una clase hija
 
-require_once "models/conexion.php";
+namespace models\crud;
+include_once "models/conexion.php";
+
+use models\conexion\Conexion;
+use \PDO;
+use \PDOException;
 
 class Datos extends Conexion
 {

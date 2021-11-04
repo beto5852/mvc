@@ -1,8 +1,11 @@
-<?php include "modulos/header.php" ?>
+<?php 
+    include "modulos/header.php";
+    use controllers\controller\MvcController;
+ ?>
 
     <header>
         <h1 class="text-center">LOGOTIPO</h1>
-         <?php include "modulos/navegacion.php" ?>
+         <?php include "modulos/navegacion.php"; ?>
     </header>
 
 
@@ -17,4 +20,4 @@
 
     </div>
 
-    <?php include "modulos/footer.php" ?>
+    <?php include "modulos/footer.php"; ?>

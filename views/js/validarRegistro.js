@@ -14,7 +14,9 @@
     VALIDAR USUARIO EXISTENTE CON AJAX y JQUERY
  *************************************************************** */
     // usuario no existe
-    var usuarioExistente = false;
+
+
+/* var usuarioExistente = false;
 
 
 
@@ -59,14 +61,14 @@ $("#usuarioRegistro").change(function() {
 });
 
 
-
+ */
 
 /* ***************************************************************
     FIN NVALIDAR USUARIO EXISTENTE CON AJAX 
  *************************************************************** */
 
 
-    
+
 /* ***************************************************************
     VARIABLES 
  *************************************************************** */
@@ -153,8 +155,33 @@ function validarLongitud(campo){
 VALIDAR USUARIO REGISTRO 
  *************************************************************** */
 
-function validarNombreUsuario(){
+function validarNombreUsuario(campo){
     // console.log('dentro del input name');
+    const usuario = campo.value;
+    const datos = new FormData();
+
+    datos.append("validarUsuario", usuario);
+
+    //instanciamos la comunicacion para crear el objeto
+    const xhr = new XMLHttpRequest();
+
+    // abrimos la conexión
+    xhr.open('POST','views/modulos/ajax.php',true);
+
+    //una vez que carga 
+    xhr.onload =  function(){
+        //status 200:correcto  |  403: prohibido  | 404: No encontrado
+        if(this.status === 200){
+            
+            document.getElementById('userAjax').innerHTML = this.responseText;
+        }
+    }
+    console.log(campo.value)
+    //enviar el request
+
+    xhr.send(datos);
+
+
     
 }
 

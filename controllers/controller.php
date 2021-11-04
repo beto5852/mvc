@@ -1,8 +1,12 @@
 <?php 
 
+//Definir namespace
+namespace controllers\controller;
+require_once "./models/model.php";
+require_once "./models/crud.php";
+use models\model\EnlacesPaginas;
+use models\crud\Datos;
 
-require_once "models/crud.php";
-require_once "models/model.php";
 
 class MvcController
 {
@@ -10,7 +14,7 @@ class MvcController
     #Metodo para invocar a la plantilla
     #-------------------------------------------------------------
 
-    public static function plantilla()
+    public function plantilla()
     {
         // usamos include para invocar el archivo que contienen el codigo html
         include "views/templates.php";
@@ -334,8 +338,6 @@ class MvcController
 
         $respuesta= Datos::validarUsuarioModel($datosController, "usuarios");
 
-        echo $respuesta;
-        
         if (count($respuesta["usuario"]) > 0) {
             
             echo 0;

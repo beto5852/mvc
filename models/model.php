@@ -3,6 +3,10 @@
 // Tipo de datos siempre son estrictos
 // declare(strict_types=1);
 
+//Definir namespace
+namespace models\model;
+
+
 class EnlacesPaginas
 {
     public static function enlacesPaginasModel($enlacesModel)

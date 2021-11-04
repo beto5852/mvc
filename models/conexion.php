@@ -2,6 +2,8 @@
 
 // Tipo de datos siempre son estrictos
 // declare(ticks=1);
+namespace models\conexion;
+use \PDO;
 
 class Conexion
 {
@@ -17,11 +19,11 @@ class Conexion
 
             $dsn = 'mysql:host='.$host.';dbname='.$db;
             
-            $link = new PDO($dsn,$usuario,$pass);
+            $link = new \PDO($dsn,$usuario,$pass);
             // $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $link;
 
-        } catch (PDOException $e){
+        } catch (\PDOException $e){
             $mensaje_error =  $e->getMessage();
             include "views/error/dberror.php";
             exit();
